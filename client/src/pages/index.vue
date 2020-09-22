@@ -6,6 +6,12 @@
 		</div>
 
 		<div class="row">
+			<card class="card card-body">
+				<h3>Latest Tweet</h3>
+			</card>
+		</div>
+
+		<div class="row">
 			<div class="col-4">
 				<h5>#hack</h5>
 				<Line-chart

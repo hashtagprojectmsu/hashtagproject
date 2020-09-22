@@ -8,7 +8,7 @@ const consumer_secret = process.env.TWITTER_CONSUMER_SECRET || ''
 const access_token_key = process.env.TWITTER_ACCESS_TOKEN_KEY || ''
 const access_token_secret = process.env.TWITTER_ACCESS_TOKEN_SECRET || ''
 
-console.log('sss', consumer_key)
+
 // [TWITTER] //
 const client = new Twitter({
 	consumer_key: consumer_key,

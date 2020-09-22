@@ -21,9 +21,9 @@
 	</script>
 
 	<style>
-	#app {
-		font-family: minion-pro Avenir, Helvetica, Arial, sans-serif;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-	}
+		#app {
+			font-family: minion-pro Avenir, Helvetica, Arial, sans-serif;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+		}
 </style>

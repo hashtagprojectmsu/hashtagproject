@@ -5,20 +5,13 @@ require('dotenv').config()
 
 
 // [REQUIRE] Personal //
-const TweetModel = require('./models/TweetModel')
-
-
-// [INIT] //
-const consumer_key = process.env.TWITTER_CONSUMER_KEY || ''
-const consumer_secret = process.env.TWITTER_CONSUMER_SECRET || ''
-const access_token_key = process.env.TWITTER_ACCESS_TOKEN_KEY || ''
-const access_token_secret = process.env.TWITTER_ACCESS_TOKEN_SECRET || ''
-const uri = process.env.MONGO_URI || 'mongodb://localhost:27017/twitter'
+const config = require('./s-config')
+const TweetModel = require('./s-models/TweetModel')
 
 
 // [MONGOOSE-CONNECT] //
 mongoose.connect(
-	uri,
+	config.mongoURI,
 	{
 		useNewUrlParser: true,
 		useUnifiedTopology: true
@@ -33,34 +26,51 @@ mongoose.set('useFindAndModify', false)
 
 // [TWITTER] //
 const client = new Twitter({
-	consumer_key: consumer_key,
-	consumer_secret: consumer_secret,
-	access_token_key: access_token_key,
-	access_token_secret: access_token_secret
+	consumer_key: config.consumer_key,
+	consumer_secret: config.consumer_secret,
+	access_token_key: config.access_token_key,
+	access_token_secret: config.access_token_secret
 })
 
 
 // [TWITTER-STREAM] //
-const stream = client.stream('statuses/filter', { track: '#blockchain' })
+const stream = client.stream('statuses/filter', {
+	track: "#hack, #hacked, #malware"
+})
 
 
 // [TWITTER-DATA] //
-stream.on('data', async (event) => {
+stream.on('data', async (tweet) => {
 	// [INIT] //
-	let saveThis = event
+	console.log('Tweet from Stream:', tweet)
 
-	// [PROCESS] //
-	saveThis.user = saveThis.user.id_str
+	const myTweet = tweet
 
-	// [SAVE] //
-	try {
-		const tweet = await new TweetModel(saveThis).save()
+	// [FORMAT] CREATED_AT //
+	myTweet.created_at = new Date(tweet.created_at)
 
-		console.log(tweet)
+	// [FORMAT] USER: Save just the id_str for the //
+	myTweet.user = { id_str: tweet.user.id_str, screen_name: tweet.user.screen_name }
+
+	if (tweet.retweeted_status) {
+		// [FORMAT] RETWEETED_STATUS: Save just the id_str //
+		myTweet.retweeted_status = { id_str: tweet.retweeted_status.id_str }
 	}
-	catch (err) { console.log(`Caught Error --> ${err}`) }
+
+	// [READ] //
+	try {
+		// Do not double save a tweet! //
+		const foundTweet = await TweetModel.findOne({ id_str: tweet.id_str })
+
+		if (!foundTweet) {
+			// [SAVE] //
+			await new TweetModel(myTweet).save()
+		}
+		else { console.log('Tweet already in the database.') }
+	}
+	catch (err) { console.log('Caught Error -->', err) }
 })
 
 
 // [TWITTER-ERROR] //
-stream.on('error', function(err) { throw err })
+stream.on('error', (err) => { console.log('Error:', err) })
