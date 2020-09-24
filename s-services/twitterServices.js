@@ -21,7 +21,7 @@ const client = new Twitter({
 })
 
 
-async function queryTwitter(query, count) {
+const queryTwitter = async (query, count) => {
 	// [VALIDATE] //
 	if (!count) count = 10
 	
@@ -35,7 +35,7 @@ async function queryTwitter(query, count) {
 	try {
 		const tweets = await client.get('search/tweets', params)
 
-		console.log('tweets', tweets)
+		console.log('queryTwitter', tweets)
 
 		return {
 			executed: true,
@@ -55,16 +55,20 @@ async function queryTwitter(query, count) {
 }
 
 
-async function getTweetById_str(id_str) {
+getTweetById_str = async (id_str) => {
 	const params2 = { id: id_str }
 
 	// [GET] Twitter Client //
 	try {
 		const tweet = await client.get('statuses/show', params2)
 
-		console.log('tweet:', tweet)
+		//console.log('tweet:', tweet)
 
-		return tweet
+		return {
+			executed: true,
+			status: true,
+			tweet: tweet,
+		}
 	}
 	catch (err) {
 		console.log('Error -->', err)
