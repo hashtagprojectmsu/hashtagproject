@@ -7,33 +7,24 @@
 		mixins: [Line],
 
 		props: {
-			chartData: {
+			labels: {
 				type: Array,
 				required: true,
 			},
-			change: {
-				type: Number 
-			}
-		},
 
-		data: function() {
-			return {
-				labels: [],
-				value: [],
-			}
+			data: {
+				type: Array,
+				required: true
+			},
 		},
 
 		mounted: function() {
-			// Map Data //
-			this.labels = this.chartData.map(cd => cd.label)
-			this.values = this.chartData.map(cd => cd.value)
-
 			// Render the Chart //
 			this.renderChart(
 				{
 					labels: this.labels,
 					datasets: [{
-						data: this.values,
+						data: this.data,
 						backgroundColor: '#58c6c2',
 						borderColor: 'black',
 					}]

@@ -25,35 +25,29 @@ const router = express.Router().use(cors())
 router.get(
 	'/',
 	async (req, res) => {
-		// Past Point A
-		let pastA = new Date()
-		pastA.setHours(pastA.getHours() - 1)
+		let chartData = []
 
-		// Past Point B
-		let pastB = new Date()
-		pastB.setHours(pastB.getHours() - 0)
+		for (let i = 10; i > 1; i--) {
+			// Past Point A
+			let pastA = new Date()
+			pastA.setMinutes(pastA.getMinutes() - (i + 1))
 
-		// [LOG] //
-		console.log('pastA:', pastA)
-		console.log('pastA:', pastB)
+			// Past Point B
+			let pastB = new Date()
+			pastB.setMinutes(pastB.getMinutes() - i)
 
-		// [READ-ALL] After pastA //
-		const data = await TweetModel.countDocuments({
-			created_at: {
-				$gte: pastA,
-				$lt: pastB
-			}
-		})
+			// [READ-ALL] After pastA //
+			const count = await TweetModel.countDocuments({
+				created_at: {
+					$gte: pastA,
+					$lt: pastB
+				}
+			})
 
-		for (let i = 0; i < 10; i++) {
-			console.log(i)
+			chartData.push({ time: pastB.toLocaleTimeString(), count })
 		}
 		  
-		res.send({
-			pastA: pastA.toLocaleTimeString(),
-			pastB: pastB.toLocaleTimeString(),
-			count: data,
-		})
+		res.send(chartData)
 	}
 )
 

@@ -2,14 +2,14 @@
 	<div id="app">
 		<div class="container">
 			<div class="row">
-				<h1 class="m-1 text-dark">
+				<h1 class="col m-1 text-dark">
 					The Has<i style="color: #58c6c2">#</i>tag Project
 				</h1>
 			</div>
 		</div>
 
 		<!-- Display the router Stuff -->
-		<router-view :key="routerViewKey" />
+		<router-view />
 	</div>
 </template>
 
