@@ -14,15 +14,54 @@
 		<!-- Chart Row -->
 		<div class="row mt-3">
 			<div class="col">
-				<div class="d-flex flex-wrap">
-					<div class="w-100"><h4 class="text-primary">All Tweets</h4></div>
-					<Line-chart
-						v-if="!loading"
-						:labels="labels"
-						:data="values"
-						class="card card-body flex-card flex-wrap"
-						style="height: 300px;"
-					/>
+				<div class="d-flex flex-wrap p-3 bg-white border rounded ">
+					<!-- All Hashtags -->
+					<div class="w-100 m-1 card card-body flex-card flex-wrap">
+						<h4 class="text-primary">#hack, #hacked, #malwar</h4>
+						<Line-chart
+							v-if="!loading"
+							:labels="labels"
+							:data="values"
+							class="w-100"
+							style="height: 350px;"
+						/>
+					</div>
+
+					<!-- #Hack -->
+					<div class="m-1 card card-body flex-card flex-wrap" style="max-width: 350px;">
+						<h4 class="text-primary">#hack</h4>
+						<Line-chart
+							v-if="!loading"
+							:labels="labels"
+							:data="values"
+							class="w-100"
+							style="height: 350px;"
+						/>
+					</div>
+					
+					<!-- #hacked -->
+					<div class="m-1 card card-body flex-card flex-wrap" style="max-width: 350px;">
+						<h4 class="text-primary">#hacked</h4>
+						<Line-chart
+							v-if="!loading"
+							:labels="labels"
+							:data="values"
+							class="w-100"
+							style="height: 350px;"
+						/>
+					</div>
+
+					<!-- #malware -->
+					<div class="m-1 card card-body flex-card flex-wrap" style="max-width: 350px;">
+						<h4 class="text-primary">#malware</h4>
+						<Line-chart
+							v-if="!loading"
+							:labels="labels"
+							:data="values"
+							class="w-100"
+							style="height: 350px;"
+						/>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -64,12 +103,11 @@
 			this.labels = this.returned.map(d => d.time)
 			this.values = this.returned.map(d => d.count)
 
-			// Disable Loading
+			// Disable Loading //
 			this.loading = false
 
+			// [LOG] //
 			console.log(this.returned)
-			console.log(this.labels)
-			console.log(this.values)
 		},
 	}
 </script>

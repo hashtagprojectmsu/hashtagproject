@@ -66,7 +66,7 @@ stream.on('data', async (tweet) => {
 			// [SAVE] //
 			await new TweetModel(myTweet).save()
 		}
-		else { console.log('Tweet already in the database.') }
+		else { console.log('Tweet already in the database') }
 	}
 	catch (err) { console.log('Caught Error -->', err) }
 })

@@ -1,20 +1,15 @@
 /**
- * %%%%%%%%%%%%%%%%%%% *
- * %%% INDEX ROUTE %%% *
- * %%%%%%%%%%%%%%%%%%% *
+ * %%%%%%%%%%%%%%%%%% *
+ * %%% INDEX PAGE %%% *
+ * %%%%%%%%%%%%%%%%%% *
 */
 // [REQUIRE] //
 const cors = require('cors')
 const express = require('express')
-const mongoose = require('mongoose')
 require('dotenv').config()
 
 // [REQUIRE] Personal //
 const TweetModel = require('../../s-models/TweetModel')
-
-// [INIT] //
-const port = process.env.PORT || 5000
-const base_url = process.env.BASE_URL || `http://localhost:${port}`
 
 
 // [EXPRESS + USE] //
@@ -27,35 +22,28 @@ router.get(
 	async (req, res) => {
 		let chartData = []
 
-		for (let i = 10; i > 1; i--) {
+		for (let i = 30; i > 0; i--) {
 			// Past Point A
-			let pastA = new Date()
-			pastA.setMinutes(pastA.getMinutes() - (i + 1))
+			let timePointA = new Date()
+			timePointA.setMinutes(timePointA.getMinutes() - (i + 1))
 
 			// Past Point B
-			let pastB = new Date()
-			pastB.setMinutes(pastB.getMinutes() - i)
+			let timePointB = new Date()
+			timePointB.setMinutes(timePointB.getMinutes() - i)
 
-			// [READ-ALL] After pastA //
+			// [READ-ALL] timePointA < Tweets < timePointB //
 			const count = await TweetModel.countDocuments({
 				created_at: {
-					$gte: pastA,
-					$lt: pastB
+					$gte: timePointA,
+					$lt: timePointB
 				}
 			})
 
-			chartData.push({ time: pastB.toLocaleTimeString(), count })
+			chartData.push({ time: timePointB.toLocaleTimeString(), count })
 		}
 		  
 		res.send(chartData)
 	}
-)
-
-	
-// [BASE-URL-ROUTE] For the socket //
-router.get(
-	'/get-base-url',
-	async (req, res) => { res.send(base_url) }
 )
 
 
