@@ -17,7 +17,7 @@
 				<div class="d-flex flex-wrap p-3 bg-white border rounded ">
 					<!-- All Hashtags -->
 					<div class="w-100 m-1 card card-body flex-card flex-wrap">
-						<h4 class="text-primary">#hack, #hacked, #malwar</h4>
+						<h4 class="">#hack, #hacked, #malwar</h4>
 						<Line-chart
 							v-if="!loading"
 							:labels="labels"
@@ -29,7 +29,7 @@
 
 					<!-- #Hack -->
 					<div class="m-1 card card-body flex-card flex-wrap" style="max-width: 350px;">
-						<h4 class="text-primary">#hack</h4>
+						<h4 class="">#hack</h4>
 						<Line-chart
 							v-if="!loading"
 							:labels="labels"
@@ -41,7 +41,7 @@
 					
 					<!-- #hacked -->
 					<div class="m-1 card card-body flex-card flex-wrap" style="max-width: 350px;">
-						<h4 class="text-primary">#hacked</h4>
+						<h4 class="">#hacked</h4>
 						<Line-chart
 							v-if="!loading"
 							:labels="labels"
@@ -53,7 +53,7 @@
 
 					<!-- #malware -->
 					<div class="m-1 card card-body flex-card flex-wrap" style="max-width: 350px;">
-						<h4 class="text-primary">#malware</h4>
+						<h4 class="">#malware</h4>
 						<Line-chart
 							v-if="!loading"
 							:labels="labels"

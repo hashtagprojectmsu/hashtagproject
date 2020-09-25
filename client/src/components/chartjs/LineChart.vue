@@ -25,8 +25,8 @@
 					labels: this.labels,
 					datasets: [{
 						data: this.data,
-						backgroundColor: '#58c6c2',
-						borderColor: 'black',
+						backgroundColor: '#58c6c2a8',
+						borderColor: '#58c6c2',
 					}]
 				},
 				{
@@ -38,16 +38,16 @@
 						yAxes: [{
 							ticks: {
 								fontColor: "black",
-								//fontSize: 18,
-								//stepSize: 1,
+								fontSize: 12,
+								stepSize: 1,
 								beginAtZero: false
 							}
 						}],
 						xAxes: [{
 							ticks: {
-								fontColor: "#58c6c2",
-								//fontSize: 14,
-								//stepSize: 1,
+								fontColor: "black",
+								fontSize: 10,
+								stepSize: 1,
 								beginAtZero: false
 							}
 						}]
