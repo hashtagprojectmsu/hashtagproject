@@ -20,8 +20,8 @@
 						<h4 class="">#hack, #hacked, #malwar</h4>
 						<Line-chart
 							v-if="!loading"
-							:labels="labels"
-							:data="values"
+							:labels="allHashtagsLabels"
+							:data="allHashtagsValues"
 							class="w-100"
 							style="height: 350px;"
 						/>
@@ -32,8 +32,8 @@
 						<h4 class="">#hack</h4>
 						<Line-chart
 							v-if="!loading"
-							:labels="labels"
-							:data="values"
+							:labels="hackLabels"
+							:data="hackValues"
 							class="w-100"
 							style="height: 350px;"
 						/>
@@ -44,8 +44,8 @@
 						<h4 class="">#hacked</h4>
 						<Line-chart
 							v-if="!loading"
-							:labels="labels"
-							:data="values"
+							:labels="hackedLabels"
+							:data="hackedValues"
 							class="w-100"
 							style="height: 350px;"
 						/>
@@ -56,8 +56,8 @@
 						<h4 class="">#malware</h4>
 						<Line-chart
 							v-if="!loading"
-							:labels="labels"
-							:data="values"
+							:labels="malwareLabels"
+							:data="malwareValues"
 							class="w-100"
 							style="height: 350px;"
 						/>
@@ -90,8 +90,21 @@
 			return {
 				loading: true,
 				returned: [],
-				labels: [],
-				values: [],
+				// All Hashtags
+				allHashtagsLabels: [],
+				allHashtagsValues: [],
+
+				// #hack
+				hackLabels: [],
+				hackValues: [],
+
+				// #hacked
+				hackedLabels: [],
+				hackedValues: [],
+
+				// #malware
+				malwareLabels: [],
+				malwareValues: [],
 			}
 		},
 
@@ -99,9 +112,21 @@
 			// [RETURN DATA]
 			this.returned = await PageService.s_home()
 			
-			// Map Data //
-			this.labels = this.returned.map(d => d.time)
-			this.values = this.returned.map(d => d.count)
+			// Map Data allHashtagsChartData //
+			this.allHashtagsLabels = this.returned.allHashtagsChartData.map(d => d.time)
+			this.allHashtagsValues = this.returned.allHashtagsChartData.map(d => d.count)
+
+			// Map Data hack //
+			this.hackLabels = this.returned.hackChartData.map(d => d.time)
+			this.hackValues = this.returned.hackChartData.map(d => d.count)
+
+			// Map Data hacked //
+			this.hackedLabels = this.returned.hackedChartData.map(d => d.time)
+			this.hackedValues = this.returned.hackedChartData.map(d => d.count)
+
+			// Map Data malware //
+			this.malwareLabels = this.returned.malwareChartData.map(d => d.time)
+			this.malwareValues = this.returned.malwareChartData.map(d => d.count)
 
 			// Disable Loading //
 			this.loading = false
