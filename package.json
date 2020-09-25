@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon stream"
+    "dev": "nodemon server",
+    "collect": "nodemon stream"
   },
   "author": "aleem ahmed",
   "license": "MIT",

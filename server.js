@@ -3,6 +3,7 @@
  * %%% HASHTAG PROJECT %%%
  * %%%%%%%%%%%%%%%%%%%%%%%
 */
+// [REQUIRE] //
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const express = require('express')
@@ -10,6 +11,10 @@ const http = require('http')
 const mongoose = require('mongoose')
 const path = require('path')
 require('dotenv').config()
+
+// [REQUIRE] Personal //
+const a_ = require('./s-routes/api')
+const p_ = require('./s-routes/pages')
 
 
 // [INIT] Const //
@@ -38,6 +43,11 @@ mongoose.set('useFindAndModify', false)
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cors())
+
+
+// [USE] Personal //
+app.use('/api', a_)
+app.use('/pages', p_)
 
 
 // [HEROKU] Set Static Folder for Heroku //
