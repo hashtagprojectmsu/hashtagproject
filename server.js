@@ -60,13 +60,5 @@ if (process.env.NODE_ENV == 'production') {
 }
 
 
-// [MAIN-ROUTE] //
-app.get('/api', async (req, res) => { res.send('API') })
-
-	
-// [BASE-URL-ROUTE] For the socket //
-app.get('/api/get-base-url', async (req, res) => { res.send(base_url) })
-
-
 // [LISTEN] //
 server.listen(port, () => { console.log(`Server Running on Port: ${port}`) })

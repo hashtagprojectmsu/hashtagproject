@@ -14,7 +14,7 @@
 		<!-- Chart Row -->
 		<div class="row mt-3">
 			<div class="col">
-				<div class="d-flex flex-wrap p-3 bg-white border rounded ">
+				<div class="d-flex flex-wrap p-3 bg-primary border rounded ">
 					<!-- All Hashtags -->
 					<div class="w-100 m-1 card card-body flex-card flex-wrap">
 						<h4 class="">#hack, #hacked, #malwar</h4>
@@ -35,7 +35,7 @@
 							:labels="hackLabels"
 							:data="hackValues"
 							class="w-100"
-							style="height: 350px;"
+							style="height: 300px;"
 						/>
 					</div>
 					
@@ -47,7 +47,7 @@
 							:labels="hackedLabels"
 							:data="hackedValues"
 							class="w-100"
-							style="height: 350px;"
+							style="height: 300px;"
 						/>
 					</div>
 
@@ -59,7 +59,7 @@
 							:labels="malwareLabels"
 							:data="malwareValues"
 							class="w-100"
-							style="height: 350px;"
+							style="height: 300px;"
 						/>
 					</div>
 				</div>
