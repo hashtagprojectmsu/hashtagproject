@@ -28,7 +28,7 @@
 					</div>
 
 					<!-- #Hack -->
-					<div class="m-1 card card-body flex-card flex-wrap" style="max-width: 350px;">
+					<div class="w-100 m-1 card card-body flex-card flex-wrap" style="">
 						<h4 class="">#hack</h4>
 						<Line-chart
 							v-if="!loading"
@@ -40,7 +40,7 @@
 					</div>
 					
 					<!-- #hacked -->
-					<div class="m-1 card card-body flex-card flex-wrap" style="max-width: 350px;">
+					<div class="w-100 m-1 card card-body flex-card flex-wrap" style="">
 						<h4 class="">#hacked</h4>
 						<Line-chart
 							v-if="!loading"
@@ -52,7 +52,7 @@
 					</div>
 
 					<!-- #malware -->
-					<div class="m-1 card card-body flex-card flex-wrap" style="max-width: 350px;">
+					<div class="w-100 m-1 card card-body flex-card flex-wrap" style="">
 						<h4 class="">#malware</h4>
 						<Line-chart
 							v-if="!loading"

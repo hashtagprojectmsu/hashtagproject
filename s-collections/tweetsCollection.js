@@ -1,10 +1,9 @@
 /**
  * %%%%%%%%%%%%%%%%%%%%%%%%% *
- * %%% ADMINS COLLECTION %%% *
+ * %%% TWEETS COLLECTION %%% *
  * %%%%%%%%%%%%%%%%%%%%%%%%% *
 */
 // [REQUIRE] //
-const mongoose = require('mongoose')
 require('dotenv').config()
 
 
@@ -28,7 +27,43 @@ const c_countTimeFrame = async (timePointA, timePointB) => {
 const c_countTimeFrameHashtag = async (timePointA, timePointB, hashtag) => {
 	// [READ-ALL] timePointA < Tweets < timePointB //
 	const count = await TweetModel.countDocuments({
-		'entities.hashtags': { $elemMatch: { text: hashtag } },
+		$or: [
+			// Tweet //
+			{
+				'entities.hashtags': {
+					$elemMatch: { text: hashtag }
+				},
+			},
+			{
+				'extended_tweet.entities.hashtags': {
+					$elemMatch: { text: hashtag }
+				},
+			},
+			// retweet //
+			{
+				'retweeted_status.entities.hashtags': {
+					$elemMatch: { text: hashtag }
+				},
+			},
+			{
+				'retweeted_status.extended_tweet.entities.hashtags': {
+					$elemMatch: { text: hashtag }
+				},
+			},
+			// quoted tweet //
+			{
+				'quoted_status.entities.hashtags': {
+					$elemMatch: { text: hashtag }
+				},
+			},
+			
+			{
+				'quoted_status.extended_tweet.entities.hashtags': {
+					$elemMatch: { text: hashtag }
+				},
+			},
+		],
+		
 		created_at: {
 			$gte: timePointA,
 			$lt: timePointB

@@ -8,9 +8,10 @@ const cors = require('cors')
 const express = require('express')
 require('dotenv').config()
 
+
 // [REQUIRE] Personal //
 const tweetsCollection = require('../../s-collections/tweetsCollection')
-const TweetModel = require('../../s-models/TweetModel')
+const timeService = require('../../s-services/timeService')
 
 
 // [EXPRESS + USE] //
@@ -27,84 +28,62 @@ router.get(
 		let hackedChartData = []
 		let malwareChartData = []
 
+		const timeFrame = 180
+		const timeInterval = 10
+
 		// All Hashtags //
-		for (let i = 30; i > 0; i--) {
-			// timePointA //
-			let timePointA = new Date()
-			timePointA.setMinutes(timePointA.getMinutes() - (i + 1))
+		for (let i = timeFrame; i > 0; i = i - timeInterval) {
+			// timePointA & timePointB //
+			const timePointA = timeService.pastTimeByMinutes(i + timeInterval)
+			const timePointB = timeService.pastTimeByMinutes(i)
 
-			// timePointB //
-			let timePointB = new Date()
-			timePointB.setMinutes(timePointB.getMinutes() - i)
-
-			const count = await tweetsCollection.c_countTimeFrame(
+			// [READ-ALL] timePointA < Tweets < timePointB & containing hashtag //
+			const allHashtagsCount = await tweetsCollection.c_countTimeFrame(
 				timePointA,
 				timePointB
 			)
 
-			allHashtagsChartData.push({
-				time: timePointB.toLocaleTimeString(),
-				count
-			})
-		}
-
-		// #hack //
-		for (let i = 30; i > 0; i--) {
-			// timePointA //
-			let timePointA = new Date()
-			timePointA.setMinutes(timePointA.getMinutes() - (i + 1))
-
-			// timePointB //
-			let timePointB = new Date()
-			timePointB.setMinutes(timePointB.getMinutes() - i)
-
-			const count = await tweetsCollection.c_countTimeFrameHashtag(
+			// [READ-ALL] timePointA < Tweets < timePointB & containing hashtag //
+			const hackCount = await tweetsCollection.c_countTimeFrameHashtag(
 				timePointA,
 				timePointB,
 				'hack'
 			)
 
-			hackChartData.push({ time: timePointB.toLocaleTimeString(), count })
-		}
-
-		// #hacked //
-		for (let i = 30; i > 0; i--) {
-			// timePointA //
-			let timePointA = new Date()
-			timePointA.setMinutes(timePointA.getMinutes() - (i + 1))
-
-			// timePointB //
-			let timePointB = new Date()
-			timePointB.setMinutes(timePointB.getMinutes() - i)
-
-			// [READ-ALL] timePointA < Tweets < timePointB //
-			const count = await tweetsCollection.c_countTimeFrameHashtag(
+			// [READ-ALL] timePointA < Tweets < timePointB & containing hashtag //
+			const hackedCount = await tweetsCollection.c_countTimeFrameHashtag(
 				timePointA,
 				timePointB,
 				'hacked'
 			)
 
-			hackedChartData.push({ time: timePointB.toLocaleTimeString(), count })
-		}
-
-		// #malware //
-		for (let i = 30; i > 0; i--) {
-			// timePointA //
-			let timePointA = new Date()
-			timePointA.setMinutes(timePointA.getDa() - (i + 1))
-
-			// timePointB //
-			let timePointB = new Date()
-			timePointB.setMinutes(timePointB.getMinutes() - i)
-
-			// [READ-ALL] timePointA < Tweets < timePointB //
-			const count = await tweetsCollection.c_countTimeFrameHashtag(
+			// [READ-ALL] timePointA < Tweets < timePointB & containing hashtag //
+			const malwareCount = await tweetsCollection.c_countTimeFrameHashtag(
 				timePointA,
 				timePointB,
 				'malware'
 			)
 
-			malwareChartData.push({ time: timePointB.toLocaleTimeString(), count })
+			// [PUSH] //
+			allHashtagsChartData.push({
+				time: timePointB.toLocaleTimeString(),
+				count: allHashtagsCount
+			})
+
+			hackChartData.push({
+				time: timePointB.toLocaleTimeString(),
+				count: hackCount
+			})
+
+			hackedChartData.push({
+				time: timePointB.toLocaleTimeString(),
+				count: hackedCount
+			})
+
+			malwareChartData.push({
+				time: timePointB.toLocaleTimeString(),
+				count: malwareCount
+			})
 		}
 		  
 		res.status(200).send({

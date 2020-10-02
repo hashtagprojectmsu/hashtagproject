@@ -50,11 +50,11 @@ stream.on('data', async (tweet) => {
 	myTweet.created_at = new Date(tweet.created_at)
 
 	// [FORMAT] USER: Save just the id_str for the //
-	myTweet.user = { id_str: tweet.user.id_str, screen_name: tweet.user.screen_name }
+	//myTweet.user = { id_str: tweet.user.id_str, screen_name: tweet.user.screen_name }
 
 	if (tweet.retweeted_status) {
 		// [FORMAT] RETWEETED_STATUS: Save just the id_str //
-		myTweet.retweeted_status = { id_str: tweet.retweeted_status.id_str }
+		//myTweet.retweeted_status = { id_str: tweet.retweeted_status.id_str }
 	}
 
 	// [READ] //
