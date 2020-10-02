@@ -12,18 +12,37 @@ const TweetModel = require('../s-models/TweetModel')
 
 
 /******************* [CRUD] *******************/
+const recentTweets = async (timePointA, timePointB) => {
+	console.log(timePointA, timePointB, new Date())
+
+	// [READ-ALL] verfied + time frame //
+	const tweets = await TweetModel.find({
+		'user.verified': true,
+		created_at: {
+			$gte: timePointA,
+			$lte: timePointB
+		}
+	})
+
+	return tweets
+}
+
+
 // [READ] Popular tweet within a timeframe //
 const popularTweetWithinTime = async (timePointA, timePointB) => {
 	// [READ-ALL] timePointA < Tweets < timePointB //
 	const count = await TweetModel.countDocuments({
 		created_at: {
 			$gte: timePointA,
-			$lt: timePointB
+			$lte: timePointB
 		}
 	})
 
 	return count
 }
+
+
+
 
 
 /******************* [COUNT] *******************/
@@ -32,7 +51,7 @@ const c_countTimeFrame = async (timePointA, timePointB) => {
 	const count = await TweetModel.countDocuments({
 		created_at: {
 			$gte: timePointA,
-			$lt: timePointB
+			$lte: timePointB
 		}
 	})
 
@@ -81,7 +100,7 @@ const c_countTimeFrameHashtag = async (timePointA, timePointB, hashtag) => {
 		
 		created_at: {
 			$gte: timePointA,
-			$lt: timePointB
+			$lte: timePointB
 		}
 	})
 
@@ -91,6 +110,8 @@ const c_countTimeFrameHashtag = async (timePointA, timePointB, hashtag) => {
 
 // [EXPORT] //
 module.exports = {
+	recentTweets,
+	popularTweetWithinTime,
 	c_countTimeFrame,
 	c_countTimeFrameHashtag,
 }

@@ -1,8 +1,70 @@
 <template>
 	<div class="container">
-		<div class="row mt-3">
-			<div class="col">
-				<!-- Get Hashtag from user -->
+		<!-- All Hashtags Chart Row -->
+		<div class="row">
+			<div class="col-12 mt-3">
+				<div class="w-100 card card-body flex-card flex-wrap">
+					<h4 class="text-primary">#hack, #hacked, #malwar</h4>
+					<Line-chart
+						v-if="!loading"
+						:labels="allHashtagsLabels"
+						:data="allHashtagsValues"
+						class="w-100"
+						style="height: 350px;"
+					/>
+				</div>
+			</div>
+		</div>
+
+		<!-- #hack, #hacked, & #malware -->
+		<div class="row">
+			<div class="col-md-4 mt-3">
+				<!-- #Hack -->
+				<div class="card card-body flex-card flex-wrap" style="">
+					<h4 class="text-primary">#hack</h4>
+					<Line-chart
+						v-if="!loading"
+						:labels="hackLabels"
+						:data="hackValues"
+						class="w-100"
+						style="height: 300px;"
+					/>
+				</div>
+			</div>
+
+			<div class="col-md-4 mt-3">
+				<!-- #hacked -->
+				<div class="card card-body flex-card flex-wrap" style="">
+					<h4 class="text-primary">#hacked</h4>
+					<Line-chart
+						v-if="!loading"
+						:labels="hackedLabels"
+						:data="hackedValues"
+						class="w-100"
+						style="height: 300px;"
+					/>
+				</div>
+			</div>
+			
+
+			<div class="col-md-4 mt-3">
+				<!-- #malware -->
+				<div class="card card-body flex-card flex-wrap">
+					<h4 class="text-primary">#malware</h4>
+					<Line-chart
+						v-if="!loading"
+						:labels="malwareLabels"
+						:data="malwareValues"
+						class="w-100"
+						style="height: 300px;"
+					/>
+				</div>
+			</div>
+		</div>
+
+		<!-- Search Row -->
+		<div class="row">
+			<div class="col-12 mt-3">
 				<input
 					type="text"
 					placeholder="Type a hashtag here"
@@ -11,65 +73,16 @@
 			</div>
 		</div>
 
-		<!-- Chart Row -->
-		<div class="row mt-3">
-			<div class="col">
-				<div class="d-flex flex-wrap p-3 bg-primary border rounded ">
-					<!-- All Hashtags -->
-					<div class="w-100 m-1 card card-body flex-card flex-wrap">
-						<h4 class="">#hack, #hacked, #malwar</h4>
-						<Line-chart
-							v-if="!loading"
-							:labels="allHashtagsLabels"
-							:data="allHashtagsValues"
-							class="w-100"
-							style="height: 350px;"
-						/>
-					</div>
-
-					<!-- #Hack -->
-					<div class="w-100 m-1 card card-body flex-card flex-wrap" style="">
-						<h4 class="">#hack</h4>
-						<Line-chart
-							v-if="!loading"
-							:labels="hackLabels"
-							:data="hackValues"
-							class="w-100"
-							style="height: 300px;"
-						/>
-					</div>
-					
-					<!-- #hacked -->
-					<div class="w-100 m-1 card card-body flex-card flex-wrap" style="">
-						<h4 class="">#hacked</h4>
-						<Line-chart
-							v-if="!loading"
-							:labels="hackedLabels"
-							:data="hackedValues"
-							class="w-100"
-							style="height: 300px;"
-						/>
-					</div>
-
-					<!-- #malware -->
-					<div class="w-100 m-1 card card-body flex-card flex-wrap" style="">
-						<h4 class="">#malware</h4>
-						<Line-chart
-							v-if="!loading"
-							:labels="malwareLabels"
-							:data="malwareValues"
-							class="w-100"
-							style="height: 300px;"
-						/>
-					</div>
-				</div>
-			</div>
-		</div>
-
 		<!-- Latest Tweet Row -->
-		<div class="row mt-3">
-			<div class="col">
-				<div class="card card-body"><h3>Latest Tweet</h3></div>
+		<div class="row">
+			<div class="col-md-12 mt-3">
+				<div class="card card-body">
+					<!-- Title -->
+					<h4 class="text-primary">Recent Tweets from Verified Users</h4>
+
+					<!-- [COMPONENT] Tweet List -->
+					<TweetList v-if="!loading" :tweets="recentVerifiedTweets" />
+				</div>
 			</div>
 		</div>
 	</div>
@@ -78,18 +91,21 @@
 <script>
 	// [IMPORT] Personal //
 	import LineChart from '../components/chartjs/LineChart'
+	import TweetList from '../components/tweets/list'
 	import PageService from '../services/pageService'
 
 	// [EXPORT] //
 	export default {
 		components: {
 			LineChart,
+			TweetList,
 		},
 
 		data() {
 			return {
 				loading: true,
 				returned: [],
+
 				// All Hashtags
 				allHashtagsLabels: [],
 				allHashtagsValues: [],
@@ -105,6 +121,9 @@
 				// #malware
 				malwareLabels: [],
 				malwareValues: [],
+
+				// Recent Verified Tweets
+				recentVerifiedTweets: []
 			}
 		},
 
@@ -127,6 +146,8 @@
 			// Map Data malware //
 			this.malwareLabels = this.returned.malwareChartData.map(d => d.time)
 			this.malwareValues = this.returned.malwareChartData.map(d => d.count)
+
+			this.recentVerifiedTweets = this.returned.recentVerifiedTweets
 
 			// Disable Loading //
 			this.loading = false

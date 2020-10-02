@@ -11,6 +11,7 @@ require('dotenv').config()
 
 // [REQUIRE] Personal //
 const tweetsCollection = require('../../s-collections/tweetsCollection')
+const { pastTimeByMinutes } = require('../../s-services/timeService')
 const timeService = require('../../s-services/timeService')
 
 
@@ -29,7 +30,7 @@ router.get(
 		let malwareChartData = []
 
 		const timeFrame = 180
-		const timeInterval = 10
+		const timeInterval = 2
 
 		// All Hashtags //
 		for (let i = timeFrame; i > 0; i = i - timeInterval) {
@@ -85,57 +86,54 @@ router.get(
 				count: malwareCount
 			})
 		}
+
+		const recentVerifiedTweets = await tweetsCollection.recentTweets(
+			pastTimeByMinutes(timeFrame+ 10000),
+			pastTimeByMinutes(0),
+		)
 		  
 		res.status(200).send({
 			hackChartData,
 			hackedChartData,
 			malwareChartData,
-			allHashtagsChartData
+			allHashtagsChartData,
+			recentVerifiedTweets,
 		})
 	}
 )
 
 // [MAIN-ROUTE] //
 router.get(
-	'/d',
+	'/test',
 	async (req, res) => {
 		// timePointA & timePointB //
-		const timePointA = timeService.pastTimeByMinutes(60)
+		const timePointA = timeService.pastTimeByMinutes(600)
 		const timePointB = timeService.pastTimeByMinutes(10)
 
 		// [READ-ALL] timePointA < Tweets < timePointB & containing hashtag //
 		const allHashtagsCount = await tweetsCollection.c_countTimeFrame(
-			timePointA,
+			timeFrame,
 			timePointB
 		)
 
 		// [READ-ALL] timePointA < Tweets < timePointB & containing hashtag //
-		// [READ-ALL] timePointA < Tweets < timePointB & containing hashtag //
-		const malwareCount = await tweetsCollection.c_countTimeFrameHashtag(
+		const hack = await tweetsCollection.c_countTimeFrameHashtag(
 			timePointA,
 			timePointB,
 			'hack'
 		)
 
 		// [READ-ALL] timePointA < Tweets < timePointB & containing hashtag //
-		const malwareCount2 = await tweetsCollection.c_countTimeFrameHashtag(
+		const hackedCount = await tweetsCollection.c_countTimeFrameHashtag2(
 			timePointA,
 			timePointB,
 			'hacked'
 		)
 
-		// [READ-ALL] timePointA < Tweets < timePointB & containing hashtag //
-		const malwareCount3 = await tweetsCollection.c_countTimeFrameHashtag(
-			timePointA,
-			timePointB,
-			'malware'
-		)
-
 		res.status(200).send({
-			//d: allHashtagsCount,
-			count: malwareCount,
-			//c:malwareCount2,
-			//c3: malwareCount3
+			allHashtagsCount: allHashtagsCount,
+			hack: hack, 
+			hackedCount: hackedCount,
 		})
 	}
 )
