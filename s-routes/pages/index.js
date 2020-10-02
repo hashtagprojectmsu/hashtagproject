@@ -95,6 +95,51 @@ router.get(
 	}
 )
 
+// [MAIN-ROUTE] //
+router.get(
+	'/d',
+	async (req, res) => {
+		// timePointA & timePointB //
+		const timePointA = timeService.pastTimeByMinutes(60)
+		const timePointB = timeService.pastTimeByMinutes(10)
+
+		// [READ-ALL] timePointA < Tweets < timePointB & containing hashtag //
+		const allHashtagsCount = await tweetsCollection.c_countTimeFrame(
+			timePointA,
+			timePointB
+		)
+
+		// [READ-ALL] timePointA < Tweets < timePointB & containing hashtag //
+		// [READ-ALL] timePointA < Tweets < timePointB & containing hashtag //
+		const malwareCount = await tweetsCollection.c_countTimeFrameHashtag(
+			timePointA,
+			timePointB,
+			'hack'
+		)
+
+		// [READ-ALL] timePointA < Tweets < timePointB & containing hashtag //
+		const malwareCount2 = await tweetsCollection.c_countTimeFrameHashtag(
+			timePointA,
+			timePointB,
+			'hacked'
+		)
+
+		// [READ-ALL] timePointA < Tweets < timePointB & containing hashtag //
+		const malwareCount3 = await tweetsCollection.c_countTimeFrameHashtag(
+			timePointA,
+			timePointB,
+			'malware'
+		)
+
+		res.status(200).send({
+			//d: allHashtagsCount,
+			count: malwareCount,
+			//c:malwareCount2,
+			//c3: malwareCount3
+		})
+	}
+)
+
 
 // [EXPORT] //
 module.exports = router
