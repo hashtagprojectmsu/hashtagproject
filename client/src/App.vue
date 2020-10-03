@@ -4,25 +4,30 @@
 		<div class="w-100 bg-white border-bottom border-primary">
 			<div class="container">
 				<div class="row">
-					<navbar class="w-100" />
+					<Navbar class="w-100" />
 				</div>
 			</div>
 		</div>
 
 		<!-- Display the router Stuff -->
 		<router-view />
+
+		<!-- Footer -->
+		<Footer />
 	</div>
 </template>
 
 <script>
 	// [IMPORT] Personal //
-	import navbar from './components/nav/navbar'
+	import Navbar from './components/nav/Navbar'
+	import Footer from './components/nav/Footer'
 
 	// [EXPORT] //
 	export default {
 		name: 'App',
 		components: {
-			navbar
+			Navbar,
+			Footer
 		}
 	}
 </script>
