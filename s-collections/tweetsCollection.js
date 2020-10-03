@@ -13,8 +13,6 @@ const TweetModel = require('../s-models/TweetModel')
 
 /******************* [CRUD] *******************/
 const recentTweets = async (timePointA, timePointB) => {
-	console.log(timePointA, timePointB, new Date())
-
 	// [READ-ALL] verfied + time frame //
 	const tweets = await TweetModel.find({
 		'user.verified': true,
@@ -22,7 +20,7 @@ const recentTweets = async (timePointA, timePointB) => {
 			$gte: timePointA,
 			$lte: timePointB
 		}
-	})
+	}).limit(5)
 
 	return tweets
 }

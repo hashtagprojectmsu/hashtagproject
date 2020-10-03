@@ -19,8 +19,8 @@
 		<!-- #hack, #hacked, & #malware -->
 		<div class="row">
 			<div class="col-md-4 mt-3">
-				<!-- #Hack -->
-				<div class="card card-body flex-card flex-wrap" style="">
+				<!-- #hack -->
+				<div class="card card-body flex-card flex-wrap">
 					<h4 class="text-primary">#hack</h4>
 					<Line-chart
 						v-if="!loading"
@@ -34,7 +34,7 @@
 
 			<div class="col-md-4 mt-3">
 				<!-- #hacked -->
-				<div class="card card-body flex-card flex-wrap" style="">
+				<div class="card card-body flex-card flex-wrap">
 					<h4 class="text-primary">#hacked</h4>
 					<Line-chart
 						v-if="!loading"
@@ -59,17 +59,6 @@
 						style="height: 300px;"
 					/>
 				</div>
-			</div>
-		</div>
-
-		<!-- Search Row -->
-		<div class="row">
-			<div class="col-12 mt-3">
-				<input
-					type="text"
-					placeholder="Type a hashtag here"
-					class="form-control"
-				>
 			</div>
 		</div>
 
