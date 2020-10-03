@@ -1,21 +1,5 @@
 <template>
 	<div class="container">
-		<!-- All Hashtags Chart Row -->
-		<div class="row">
-			<div class="col-12 mt-3">
-				<div class="w-100 card card-body">
-					<h4 class="text-primary">#hack, #hacked, #malware</h4>
-					<Line-chart
-						v-if="!loading"
-						:labels="allHashtagsLabels"
-						:data="allHashtagsValues"
-						class="w-100"
-						style="height: 350px;"
-					/>
-				</div>
-			</div>
-		</div>
-
 		<!-- Button Tabs -->
 		<div class="row">
 			<div class="col-12 my-3">
@@ -31,7 +15,7 @@
 			<div class="col">
 				<div class="w-100 card card-body">
 					<!-- Title -->
-					<h4 class="text-center text-primary">
+					<h4 class="text-center">
 						Charts of Hashtags
 					</h4>
 
@@ -82,17 +66,33 @@
 			</div>
 		</div>
 
-		<!-- Recent TweetS -->
+		<!-- Recent Tweets -->
 		<div v-show="currentTab == 'Recent Tweets'" class="row">
 			<div class="col-md-12">
 				<div class="card card-body">
 					<!-- Title -->
-					<h4 class="text-center text-primary">
+					<h4 class="text-center">
 						Recent Tweets from Verified Users
 					</h4>
 
 					<!-- [COMPONENT] Tweet List -->
 					<TweetList v-if="!loading" :tweets="recentVerifiedTweets" />
+				</div>
+			</div>
+		</div>
+
+		<!-- All Hashtags Chart Row -->
+		<div class="row">
+			<div class="col-12 mt-3">
+				<div class="w-100 card card-body">
+					<h4 class="text-primary">#hack, #hacked, #malware</h4>
+					<Line-chart
+						v-if="!loading"
+						:labels="allHashtagsLabels"
+						:data="allHashtagsValues"
+						class="w-100"
+						style="height: 350px;"
+					/>
 				</div>
 			</div>
 		</div>

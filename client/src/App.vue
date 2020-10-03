@@ -2,11 +2,7 @@
 	<div id="app">
 		<!-- Navbar -->
 		<div class="w-100 bg-white border-bottom border-primary">
-			<div class="container">
-				<div class="row">
-					<Navbar class="w-100" />
-				</div>
-			</div>
+			<Navbar class="w-100" />
 		</div>
 
 		<!-- Display the router Stuff -->

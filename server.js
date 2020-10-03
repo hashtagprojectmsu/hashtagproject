@@ -12,15 +12,11 @@ const mongoose = require('mongoose')
 const path = require('path')
 require('dotenv').config()
 
+
 // [REQUIRE] Personal //
+const config = require('./s-config')
 const a_ = require('./s-routes/api')
 const p_ = require('./s-routes/pages')
-
-
-// [INIT] Const //
-const port = process.env.PORT || 5000
-const base_url = process.env.BASE_URL || `http://localhost:${port}`
-const mongo_uri = process.env.MONGO_URI || 'mongodb://localhost:27017/twitter'
 
 
 // [EXPRESS + SERVER] //
@@ -30,7 +26,7 @@ const server = http.createServer(app)
 
 // [MONGOOSE-CONNECTION] //
 mongoose.connect(
-	mongo_uri,
+	config.mongoURI,
 	{ useNewUrlParser: true, useUnifiedTopology: true },
 	(err, connected) => {
 		if (connected) { console.log('Mongoose Connected to DB') }
@@ -38,6 +34,7 @@ mongoose.connect(
 	}
 )
 mongoose.set('useFindAndModify', false)
+
 
 // [USE] //
 app.use(bodyParser.json())
@@ -61,4 +58,6 @@ if (process.env.NODE_ENV == 'production') {
 
 
 // [LISTEN] //
-server.listen(port, () => { console.log(`Server Running on Port: ${port}`) })
+server.listen(config.port, () => {
+	console.log(`Server Running on Port: ${config.port}`)
+})

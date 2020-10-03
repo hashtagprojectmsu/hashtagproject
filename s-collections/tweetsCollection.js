@@ -40,9 +40,6 @@ const popularTweetWithinTime = async (timePointA, timePointB) => {
 }
 
 
-
-
-
 /******************* [COUNT] *******************/
 const c_countTimeFrame = async (timePointA, timePointB) => {
 	// [READ-ALL] timePointA < Tweets < timePointB //
