@@ -38,8 +38,28 @@ async function s_home() {
 }
 
 
+// [HOME] //
+async function s_quote(hashtag) {
+	const authAxios = await this.authAxios()
+
+	try {
+		const { data } = await authAxios.get(`/quote/${hashtag}`)
+
+		return data
+	}
+	catch (err) {
+		return {
+			executed: false,
+			status: false,
+			error: `PageService: Error --> ${err}`
+		}
+	}
+}
+
+
 // [EXPORT] //
 export default {
 	authAxios,
 	s_home,
+	s_quote,
 }

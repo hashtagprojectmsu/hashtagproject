@@ -23,7 +23,7 @@ const recentTweets = async (timePointA, timePointB) => {
 			$gte: timePointA,
 			$lte: timePointB
 		}
-	}).limit(5)
+	}).limit(5).sort({ created_at: -1 })
 
 	return tweets
 }

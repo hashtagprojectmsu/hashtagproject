@@ -1,6 +1,6 @@
 <template>
 	<div class="card card-body bg-dark">
-		<h4 class="text-primary">{{ title }}</h4>
+		<h4 class="text-center text-primary">{{ title }}</h4>
 		<LineChart
 			:labels="labels"
 			:data="data"

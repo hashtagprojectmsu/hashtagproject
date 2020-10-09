@@ -17,6 +17,7 @@ require('dotenv').config()
 const config = require('./s-config')
 const a_ = require('./s-routes/api')
 const p_ = require('./s-routes/pages')
+const p_quote = require('./s-routes/pages/quote')
 
 
 // [EXPRESS + SERVER] //
@@ -45,6 +46,7 @@ app.use(cors())
 // [USE] Personal //
 app.use('/api', a_)
 app.use('/pages', p_)
+app.use('/pages/quote', p_quote)
 
 
 // [HEROKU] Set Static Folder for Heroku //

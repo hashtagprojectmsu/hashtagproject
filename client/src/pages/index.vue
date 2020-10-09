@@ -26,7 +26,7 @@
 				
 					<!-- Charts -->
 					<div v-show="currentTab == 'Charts'" class="w-100">
-						<div  class="row">
+						<div class="row">
 							<!-- #hack -->
 							<div class="col-md-4">
 								<WrappedLineChart
@@ -63,6 +63,11 @@
 					</div>
 				</div>
 			</div>
+		</div>
+
+		<!-- [LOADING] -->
+		<div v-if="loading" class="mt-3 row">
+			<div class="w-100 alert alert-primary text-center">Loading..</div>
 		</div>
 	</div>
 </template>

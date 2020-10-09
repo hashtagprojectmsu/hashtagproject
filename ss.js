@@ -1,19 +1,25 @@
 // [REQUIRE] //
 const Twitter = require('twitter')
+require('dotenv').config()
 
 // [REQUIRE] Personal //
-const config = require('../s-config/index')
+const config = require('./s-config/index')
 
 
 async function asyncFunction() {
 	// [GET] Twitter Client //
 	try {
+		console.log(
+			process.env.TWITTER_CONSUMER_KEY,
+		)
+		
+		
 		// [TWITTER] //
 		const client = new Twitter({
-			consumer_key: config.consumer_key,
-			consumer_secret: config.consumer_secret,
-			access_token_key: config.access_token_key,
-			access_token_secret: config.access_token_secret
+			consumer_key: process.env.TWITTER_CONSUMER_KEY,
+			consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+			access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
+			access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
 		})
 		
 		
