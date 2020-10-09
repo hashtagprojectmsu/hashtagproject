@@ -1,7 +1,7 @@
 <template>
 	<div id="app">
 		<!-- Navbar -->
-		<div class="w-100 bg-white border-bottom border-primary">
+		<div class="w-100 border-bottom border-primary bg-dark">
 			<Navbar class="w-100" />
 		</div>
 
@@ -9,7 +9,9 @@
 		<router-view />
 
 		<!-- Footer -->
-		<Footer />
+		<div class="mt-3 w-100 border-top border-primary bg-dark">
+			<Footer class="w-100" />
+		</div>
 	</div>
 </template>
 

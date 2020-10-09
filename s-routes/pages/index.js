@@ -11,7 +11,6 @@ require('dotenv').config()
 
 // [REQUIRE] Personal //
 const tweetsCollection = require('../../s-collections/tweetsCollection')
-const { pastTimeByMinutes } = require('../../s-services/timeService')
 const timeService = require('../../s-services/timeService')
 
 
@@ -88,8 +87,8 @@ router.get(
 		}
 
 		const recentVerifiedTweets = await tweetsCollection.recentTweets(
-			pastTimeByMinutes(timeFrame+ 10000),
-			pastTimeByMinutes(0),
+			timeService.pastTimeByMinutes(timeFrame + 1440),
+			timeService.pastTimeByMinutes(0),
 		)
 		  
 		res.status(200).send({

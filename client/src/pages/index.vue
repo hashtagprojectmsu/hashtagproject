@@ -1,98 +1,66 @@
 <template>
 	<div class="container">
-		<!-- Button Tabs -->
-		<div class="row">
-			<div class="col-12 my-3">
-				<ButtonTabs
-					:tabs="['Charts', 'Recent Tweets']"
-					@tabClicked="switchTab"
+		<!-- SECTION 1 -->
+		<div v-if="!loading" class="row">
+			<!-- #hack, #hacked, #malware -->
+			<div class="col-12 mt-3">
+				<WrappedLineChart
+					:title="'#hack, #hacked, #malware'"
+					:labels="allHashtagsLabels"
+					:data="allHashtagsValues"
+					:height="350"
 				/>
 			</div>
 		</div>
 
-		<!-- Charts -->
-		<div v-show="currentTab == 'Charts'" class="row">
-			<div class="col">
-				<div class="w-100 card card-body">
-					<!-- Title -->
-					<h4 class="text-center">
-						Charts of Hashtags
-					</h4>
-
-					<div class="row">
-						<!-- #hack -->
-						<div class="col-md-4">
-							<div class="card card-body">
-								<h4 class="text-primary">#hack</h4>
-								<Line-chart
-									v-if="!loading"
+		<!-- SECTION 2 -->
+		<div v-if="!loading" class="row mt-3">
+			<div class="col-12">
+				<div class="card card-body bg-dark">
+					<!-- [COMPONENT] ButtonTabs -->
+					<ButtonTabs
+						:tabs="['Charts', 'Recent Tweets']"
+						@tabClicked="switchTab"
+						class="mb-3"
+					/>
+				
+					<!-- Charts -->
+					<div v-show="currentTab == 'Charts'" class="w-100">
+						<div  class="row">
+							<!-- #hack -->
+							<div class="col-md-4">
+								<WrappedLineChart
+									:title="'#hack'"
 									:labels="hackLabels"
 									:data="hackValues"
-									class="w-100"
-									style="height: 300px;"
 								/>
 							</div>
-						</div>
 
-						<!-- #hacked -->
-						<div class="col-md-4">
-							<div class="card card-body">
-								<h4 class="text-primary">#hacked</h4>
-								<Line-chart
-									v-if="!loading"
+							<!-- #hacked -->
+							<div class="col-md-4">
+								<WrappedLineChart
+									:title="'#hacked'"
 									:labels="hackedLabels"
 									:data="hackedValues"
-									class="w-100"
-									style="height: 300px;"
 								/>
 							</div>
-						</div>
-						
-						<!-- #malware -->
-						<div class="col-md-4">
-							<div class="card card-body">
-								<h4 class="text-primary">#malware</h4>
-								<Line-chart
-									v-if="!loading"
+							
+							<!-- #malware -->
+							<div class="col-md-4">
+								<WrappedLineChart
+									:title="'#malware'"
 									:labels="malwareLabels"
 									:data="malwareValues"
-									class="w-100"
-									style="height: 300px;"
 								/>
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-		</div>
 
-		<!-- Recent Tweets -->
-		<div v-show="currentTab == 'Recent Tweets'" class="row">
-			<div class="col-md-12">
-				<div class="card card-body">
-					<!-- Title -->
-					<h4 class="text-center">
-						Recent Tweets from Verified Users
-					</h4>
-
-					<!-- [COMPONENT] Tweet List -->
-					<TweetList v-if="!loading" :tweets="recentVerifiedTweets" />
-				</div>
-			</div>
-		</div>
-
-		<!-- All Hashtags Chart Row -->
-		<div class="row">
-			<div class="col-12 mt-3">
-				<div class="w-100 card card-body">
-					<h4 class="text-primary">#hack, #hacked, #malware</h4>
-					<Line-chart
-						v-if="!loading"
-						:labels="allHashtagsLabels"
-						:data="allHashtagsValues"
-						class="w-100"
-						style="height: 350px;"
-					/>
+					<!-- Recent Tweets -->
+					<div  v-show="currentTab == 'Recent Tweets'" class="w-100">
+						<!-- [COMPONENT] Tweet List -->
+						<TweetList v-if="!loading" :tweets="recentVerifiedTweets" />
+					</div>
 				</div>
 			</div>
 		</div>
@@ -102,7 +70,7 @@
 <script>
 	// [IMPORT] Personal //
 	import ButtonTabs from '../components/controls/ButtonTabs'
-	import LineChart from '../components/chartjs/LineChart'
+	import WrappedLineChart from '../components/chartjs/WrappedLineChart'
 	import TweetList from '../components/tweets/list'
 	import PageService from '../services/pageService'
 
@@ -110,7 +78,7 @@
 	export default {
 		components: {
 			ButtonTabs,
-			LineChart,
+			WrappedLineChart,
 			TweetList,
 		},
 

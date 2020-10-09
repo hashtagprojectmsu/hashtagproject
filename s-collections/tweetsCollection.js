@@ -2,6 +2,9 @@
  * %%%%%%%%%%%%%%%%%%%%%%%%% *
  * %%% TWEETS COLLECTION %%% *
  * %%%%%%%%%%%%%%%%%%%%%%%%% *
+ * 
+ * Timeline Example (X: time)
+ * <----(timePointA)-----(timePointB)---->
 */
 // [REQUIRE] //
 require('dotenv').config()
@@ -92,7 +95,6 @@ const c_countTimeFrameHashtag = async (timePointA, timePointB, hashtag) => {
 				},
 			},
 		],
-		
 		created_at: {
 			$gte: timePointA,
 			$lte: timePointB

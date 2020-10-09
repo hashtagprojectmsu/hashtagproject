@@ -5,7 +5,7 @@
 			:key="tweet.id_str"
 			class="col-md-6"
 		>
-			<tweet :id="tweet.id_str" />
+			<Tweet :id="tweet.id_str" :options="{ theme: 'dark' }" />
 		</div>
 	</div>
 </template>
