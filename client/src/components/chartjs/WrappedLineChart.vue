@@ -1,5 +1,5 @@
 <template>
-	<div class="card card-body bg-dark">
+	<div class="">
 		<h4 class="text-center text-primary">{{ title }}</h4>
 		<LineChart
 			:labels="labels"

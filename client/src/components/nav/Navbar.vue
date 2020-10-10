@@ -33,7 +33,7 @@
 								form-control
 								mr-sm-2
 								border
-								border-primary
+								border-secondary
 								text-light
 								bg-dark
 							"

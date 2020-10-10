@@ -6,10 +6,6 @@
  * Timeline Example (X: time)
  * <----(timePointA)-----(timePointB)---->
 */
-// [REQUIRE] //
-require('dotenv').config()
-
-
 // [REQUIRE] Personal //
 const TweetModel = require('../s-models/TweetModel')
 
@@ -105,10 +101,20 @@ const c_countTimeFrameHashtag = async (timePointA, timePointB, hashtag) => {
 }
 
 
+const c_updateDataOfVerifiedTweets = async () => {
+	// Get Tweets within a timeframe 
+
+	// Get the tweet from the api 
+
+	// update the tweet in the database
+}
+
+
 // [EXPORT] //
 module.exports = {
 	recentTweets,
 	popularTweetWithinTime,
 	c_countTimeFrame,
 	c_countTimeFrameHashtag,
+	c_updateDataOfVerifiedTweets,
 }

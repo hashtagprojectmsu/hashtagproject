@@ -4,12 +4,14 @@
 		<div v-if="!loading" class="row">
 			<!-- #hack, #hacked, #malware -->
 			<div class="col-12 mt-3">
-				<WrappedLineChart
-					:title="'#hack, #hacked, #malware'"
-					:labels="allHashtagsLabels"
-					:data="allHashtagsValues"
-					:height="350"
-				/>
+				<div class="card card-body bg-dark">
+					<WrappedLineChart
+						:title="'#hack, #hacked, #malware'"
+						:labels="allHashtagsLabels"
+						:data="allHashtagsValues"
+						:height="350"
+					/>
+				</div>
 			</div>
 		</div>
 

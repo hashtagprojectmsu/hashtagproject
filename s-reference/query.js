@@ -1,11 +1,12 @@
 // [REQUIRE] //
 const Twitter = require('twitter')
 
+
 // [REQUIRE] Personal //
-const config = require('../s-config/index')
+const config = require('../s-config')
 
 
-async function asyncFunction() {
+async function queryTwitter() {
 	// [GET] Twitter Client //
 	try {
 		// [TWITTER] //
@@ -16,17 +17,28 @@ async function asyncFunction() {
 			access_token_secret: config.access_token_secret
 		})
 		
-		
-		// This is the params or query for what you want see
-		const params = { q: '#blm is:verified', count: 5 }
+		const params = {
+			q: 'health is:verified -RT',
 
+			// YYYY-MM-DD (Cannot be farther then a week ago) //
+			//until: '2020-10-03',
+
+			count: 100
+		}
+
+		// [GET-REQUEST] //
 		const tweets = await client.get('search/tweets', params)
-		console.log('tweets', tweets)
+		
+		// [LOG] //
+		tweets.statuses.forEach(tweet => {
+			console.log(tweet.user.screen_name, tweet.user.verified)
+			console.log(tweet.user)
+		})
 	}
 	catch (err) { console.log('Error -->', err) }
 }
 
 
-asyncFunction()
+queryTwitter()
 
 
