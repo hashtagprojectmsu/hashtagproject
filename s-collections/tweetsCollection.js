@@ -19,7 +19,7 @@ const storeTweet = async (tweet) => {
 			executed: true,
 			status: true,
 			tweet: storedTweet,
-		}	
+		}
 	}
 	catch (err) {
 		return {
@@ -36,7 +36,11 @@ const readAllAll = async () => {
 	try {
 		const backupTweets = await TweetModel.find()
 
-		return backupTweets
+		return {
+			executed: true,
+			status: true,
+			backupTweets: backupTweets,
+		}
 	}
 	catch (err) {
 		return {
@@ -70,7 +74,7 @@ const recentTweets = async (timePointA, timePointB) => {
 			executed: false,
 			status: false,
 			message: `tweetsCollection: Caught Error --> ${err}`,
-		}	
+		}
 	}
 }
 
@@ -144,7 +148,7 @@ const c_countTimeFrame = async (timePointA, timePointB) => {
 			executed: false,
 			status: false,
 			message: `tweetsCollection: Caught Error --> ${err}`,
-		}	
+		}
 	}
 }
 
@@ -205,7 +209,7 @@ const c_countTimeFrameHashtag = async (timePointA, timePointB, hashtag) => {
 			executed: false,
 			status: false,
 			message: `tweetsCollection: Caught Error --> ${err}`,
-		}	
+		}
 	}
 }
 

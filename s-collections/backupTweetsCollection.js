@@ -20,7 +20,7 @@ const storeTweet = async (tweet) => {
 			executed: true,
 			status: true,
 			backupTweet: storedTweet,
-		}	
+		}
 	}
 	catch (err) {
 		return {
@@ -41,7 +41,7 @@ const readAllAll = async () => {
 			executed: true,
 			status: true,
 			backupTweets: backupTweets,
-		}	
+		}
 	}
 	catch (err) {
 		return {
@@ -62,7 +62,7 @@ const deleteAllAll = async () => {
 			executed: true,
 			status: true,
 			backupTweets: deletedBackupTweets,
-		}	
+		}
 	}
 	catch (err) {
 		return {
