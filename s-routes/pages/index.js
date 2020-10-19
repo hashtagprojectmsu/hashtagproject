@@ -38,27 +38,27 @@ router.get(
 			const timePointB = timeService.pastTimeByMinutes(i)
 
 			// [READ-ALL] timePointA < Tweets < timePointB & containing hashtag //
-			const allHashtagsCount = await tweetsCollection.c_countTimeFrame(
+			const { count: allHashtagsCount } = await tweetsCollection.c_countTimeFrame(
 				timePointA,
 				timePointB
 			)
 
 			// [READ-ALL] timePointA < Tweets < timePointB & containing hashtag //
-			const hackCount = await tweetsCollection.c_countTimeFrameHashtag(
+			const { count: hackCount } = await tweetsCollection.c_countTimeFrameHashtag(
 				timePointA,
 				timePointB,
 				'hack'
 			)
 
 			// [READ-ALL] timePointA < Tweets < timePointB & containing hashtag //
-			const hackedCount = await tweetsCollection.c_countTimeFrameHashtag(
+			const { count: hackedCount } = await tweetsCollection.c_countTimeFrameHashtag(
 				timePointA,
 				timePointB,
 				'hacked'
 			)
 
 			// [READ-ALL] timePointA < Tweets < timePointB & containing hashtag //
-			const malwareCount = await tweetsCollection.c_countTimeFrameHashtag(
+			const { count: malwareCount } = await tweetsCollection.c_countTimeFrameHashtag(
 				timePointA,
 				timePointB,
 				'malware'
@@ -86,7 +86,7 @@ router.get(
 			})
 		}
 
-		const recentVerifiedTweets = await tweetsCollection.recentTweets(
+		const { tweets: recentVerifiedTweets } = await tweetsCollection.recentTweets(
 			timeService.pastTimeByMinutes(timeFrame + 1440),
 			timeService.pastTimeByMinutes(0),
 		)
@@ -97,42 +97,6 @@ router.get(
 			malwareChartData,
 			allHashtagsChartData,
 			recentVerifiedTweets,
-		})
-	}
-)
-
-// [MAIN-ROUTE] //
-router.get(
-	'/test',
-	async (req, res) => {
-		// timePointA & timePointB //
-		const timePointA = timeService.pastTimeByMinutes(600)
-		const timePointB = timeService.pastTimeByMinutes(10)
-
-		// [READ-ALL] timePointA < Tweets < timePointB & containing hashtag //
-		const allHashtagsCount = await tweetsCollection.c_countTimeFrame(
-			timeFrame,
-			timePointB
-		)
-
-		// [READ-ALL] timePointA < Tweets < timePointB & containing hashtag //
-		const hack = await tweetsCollection.c_countTimeFrameHashtag(
-			timePointA,
-			timePointB,
-			'hack'
-		)
-
-		// [READ-ALL] timePointA < Tweets < timePointB & containing hashtag //
-		const hackedCount = await tweetsCollection.c_countTimeFrameHashtag2(
-			timePointA,
-			timePointB,
-			'hacked'
-		)
-
-		res.status(200).send({
-			allHashtagsCount: allHashtagsCount,
-			hack: hack, 
-			hackedCount: hackedCount,
 		})
 	}
 )

@@ -46,9 +46,7 @@ router.get(
 			const tweets = await client.get('search/tweets', params)
 
 			// [USERS] //
-			tweets.statuses.forEach(t => {
-				users.push(t.user.verified) 
-			})
+			tweets.statuses.forEach(t => { users.push(t.user.verified) })
 
 			res.send({
 				executed: true,

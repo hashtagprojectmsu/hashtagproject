@@ -1,3 +1,8 @@
+/**
+ * %%%%%%%%%%%%%%
+ * %%% STREAM %%%
+ * %%%%%%%%%%%%%%
+ */
 // [REQUIRE] //
 const mongoose = require('mongoose')
 const Twitter = require('twitter')
@@ -6,7 +11,7 @@ require('dotenv').config()
 
 // [REQUIRE] Personal //
 const config = require('./s-config')
-const TweetModel = require('./s-models/TweetModel')
+const tweetsCollection = require('./s-collections/tweetsCollection')
 
 
 // [MONGOOSE-CONNECT] //
@@ -41,23 +46,21 @@ const stream = client.stream('statuses/filter', {
 
 // [TWITTER-DATA] //
 stream.on('data', async (tweet) => {
+	// [LOG] //
+	console.log('Tweet from Stream:', tweet)
+	
 	// [INIT] //
 	const myTweet = tweet
-	
-	console.log('Tweet from Stream:', tweet)
 
 	// [FORMAT] CREATED_AT //
 	myTweet.created_at = new Date(tweet.created_at)
 
-	// [READ] //
 	try {
-		// Do not double save a tweet! //
-		const foundTweet = await TweetModel.findOne({ id_str: tweet.id_str })
+		// [READ] Do not double save a tweet! //
+		const { tweet: foundTweet } = await tweetsCollection.findTweet(tweet.id_str)
 
-		if (!foundTweet) {
-			// [SAVE] //
-			await new TweetModel(myTweet).save()
-		}
+		// [SAVE] //
+		if (!foundTweet) { await tweetsCollection.storeTweet(myTweet) }
 		else { console.log('Tweet already in the database') }
 	}
 	catch (err) { console.log('Caught Error -->', err) }
