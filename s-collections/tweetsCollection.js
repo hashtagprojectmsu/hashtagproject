@@ -161,34 +161,46 @@ const c_countTimeFrameHashtag = async (timePointA, timePointB, hashtag) => {
 				// Tweet //
 				{
 					'entities.hashtags': {
-						$elemMatch: { text: { $regex: new RegExp(`\\b${hashtag}\\b`, 'ig') } }
+						$elemMatch: {
+							text: { $regex: new RegExp(`\\b${hashtag}\\b`, 'ig') }
+						}
 					},
 				},
 				{
 					'extended_tweet.entities.hashtags': {
-						$elemMatch: { text: { $regex: new RegExp(`\\b${hashtag}\\b`, 'ig') } }
+						$elemMatch: {
+							text: { $regex: new RegExp(`\\b${hashtag}\\b`, 'ig') }
+						}
 					},
 				},
 				// retweet //
 				{
 					'retweeted_status.entities.hashtags': {
-						$elemMatch: { text: { $regex: new RegExp(`\\b${hashtag}\\b`, 'ig') } }
+						$elemMatch: {
+							text: { $regex: new RegExp(`\\b${hashtag}\\b`, 'ig') }
+						}
 					},
 				},
 				{
 					'retweeted_status.extended_tweet.entities.hashtags': {
-						$elemMatch: { text: { $regex: new RegExp(`\\b${hashtag}\\b`, 'ig') } }
+						$elemMatch: {
+							text: { $regex: new RegExp(`\\b${hashtag}\\b`, 'ig') }
+						}
 					},
 				},
 				// quoted tweet //
 				{
 					'quoted_status.entities.hashtags': {
-						$elemMatch: { text: { $regex: new RegExp(`\\b${hashtag}\\b`, 'ig') } }
+						$elemMatch: {
+							text: { $regex: new RegExp(`\\b${hashtag}\\b`, 'ig') }
+						}
 					},
 				},
 				{
 					'quoted_status.extended_tweet.entities.hashtags': {
-						$elemMatch: { text: { $regex: new RegExp(`\\b${hashtag}\\b`, 'ig') } }
+						$elemMatch: {
+							text: { $regex: new RegExp(`\\b${hashtag}\\b`, 'ig') }
+						}
 					},
 				},
 			],

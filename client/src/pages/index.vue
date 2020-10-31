@@ -1,7 +1,7 @@
 <template>
 	<div class="container">
 		<!-- SECTION 1 -->
-		<div v-if="!loading" class="row">
+		<section v-if="!loading" class="row">
 			<!-- #hack, #hacked, #malware -->
 			<div class="col-12 mt-3">
 				<div class="card card-body bg-dark">
@@ -13,15 +13,15 @@
 					/>
 				</div>
 			</div>
-		</div>
+		</section>
 
 		<!-- SECTION 2 -->
-		<div v-if="!loading" class="row mt-3">
+		<section v-if="!loading" class="row mt-3">
 			<div class="col-12">
 				<div class="card card-body bg-dark">
 					<!-- [COMPONENT] ButtonTabs -->
 					<ButtonTabs
-						:tabs="['Charts', 'Recent Tweets']"
+						:tabs="['Charts', 'Recent Tweets', 'Heat Map']"
 						@tabClicked="switchTab"
 						class="mb-3"
 					/>
@@ -63,9 +63,34 @@
 						<!-- [COMPONENT] Tweet List -->
 						<TweetList v-if="!loading" :tweets="recentVerifiedTweets" />
 					</div>
+
+					<!-- Heat Map -->
+					<div v-show="currentTab == 'Heat Map'" class="w-100">
+						<div class="row">
+							<Map
+								map="US"
+								:countryData="{
+									US_CA: 400,
+									US: 400,
+									CA: 120,
+									UK: 400,
+								}"
+								class="col-6"
+							/>
+							<Map
+								:countryData="{
+									US_CA: 400,
+									US: 400,
+									CA: 120,
+									UK: 400,
+								}"
+								class="col-6"
+							/>
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
+		</section>
 
 		<!-- [LOADING] -->
 		<div v-if="loading" class="mt-3 row">
@@ -79,14 +104,16 @@
 	import ButtonTabs from '../components/controls/ButtonTabs'
 	import WrappedLineChart from '../components/chartjs/WrappedLineChart'
 	import TweetList from '../components/tweets/list'
+	import Map from '../components/Map'
 	import PageService from '../services/pageService'
 
 	// [EXPORT] //
 	export default {
 		components: {
 			ButtonTabs,
-			WrappedLineChart,
+			Map,
 			TweetList,
+			WrappedLineChart,
 		},
 
 		data() {
