@@ -70,19 +70,21 @@
 							<Map
 								map="US"
 								:countryData="{
-									US_CA: 400,
-									US: 400,
-									CA: 120,
-									UK: 400,
+									US_CA: 50,
+									US_NJ: 51,
+									US_TX: 30
 								}"
 								class="col-6"
 							/>
+
 							<Map
 								:countryData="{
-									US_CA: 400,
 									US: 400,
-									CA: 120,
+									CA: 300,
 									UK: 400,
+									PK: 100,
+									IN: 300,
+									CN: 300
 								}"
 								class="col-6"
 							/>
@@ -100,11 +102,13 @@
 </template>
 
 <script>
+	// [IMPORT] //
+	import Map from 'vue-geo-heat-maps'
+
 	// [IMPORT] Personal //
 	import ButtonTabs from '../components/controls/ButtonTabs'
 	import WrappedLineChart from '../components/chartjs/WrappedLineChart'
 	import TweetList from '../components/tweets/list'
-	import Map from '../components/Map'
 	import PageService from '../services/pageService'
 
 	// [EXPORT] //
