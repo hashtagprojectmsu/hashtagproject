@@ -1,5 +1,5 @@
 <template>
-	<div class="">
+	<div>
 		<h4 class="text-center text-primary">{{ title }}</h4>
 		<LineChart
 			:labels="labels"
