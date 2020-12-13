@@ -92,7 +92,7 @@ router.get(
 			timeService.pastTimeByMinutes(timeFrame + 1440),
 			timeService.pastTimeByMinutes(0),
 		)
-		  
+		
 		res.status(200).send({
 			hackChartData,
 			hackedChartData,

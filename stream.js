@@ -60,7 +60,7 @@ stream.on('data', async (tweet) => {
 		const { tweet: foundTweet } = await tweetsCollection.findTweet(tweet.id_str)
 
 		// [SAVE] //
-		if (!foundTweet) { await tweetsCollection.storeTweet(myTweet) }
+		if (foundTweet != []) { await tweetsCollection.storeTweet(myTweet) }
 		else { console.log('Tweet already in the database') }
 	}
 	catch (err) { console.log('Caught Error -->', err) }
