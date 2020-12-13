@@ -31,6 +31,8 @@ router.get(
 		const timeFrame = 180
 		const timeInterval = 2
 
+		/** the code should also set the labels. not just the number. */
+
 		// All Hashtags //
 		for (let i = timeFrame; i > 0; i = i - timeInterval) {
 			// timePointA & timePointB //
